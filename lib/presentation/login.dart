@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:reactive_architecture/bloc/login_bloc.dart';
 import 'package:reactive_architecture/service/auth_service_impl.dart';
@@ -73,6 +75,12 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ));
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          bloc.getPerson();
+        },
+        child: Icon(Icons.refresh),
       ),
     );
   }
