@@ -21,6 +21,11 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  void dispose() {
+    bloc.onDispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -67,14 +72,6 @@ class _HomeState extends State<Home> {
                       border: Border.all(width: 0.3),
                     ),
                     child: getAddressWidget(snapshot.data),
-                  ),
-                ),
-                SizedBox(
-                  width: double.maxFinite,
-                  child: FilledButton.icon(
-                    onPressed: () {},
-                    label: Text('Submit'),
-                    icon: Icon(Icons.arrow_right_alt),
                   ),
                 ),
               ],

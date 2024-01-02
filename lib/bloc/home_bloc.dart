@@ -19,6 +19,14 @@ class HomeBloc extends BaseBloc {
         addressSubject,
       ]);
 
+  @override
+  void onDispose() {
+    continentSubject.close();
+    countrySubject.close();
+    addressSubject.close();
+    super.onDispose();
+  }
+
   final continentSubject = BehaviorSubject<ContinentVM>();
   final countrySubject = BehaviorSubject<CountryVM>();
   final addressSubject = BehaviorSubject<AddressVM>();
