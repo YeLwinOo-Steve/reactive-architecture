@@ -53,6 +53,8 @@ class LoginBloc extends BaseBloc {
       Rx.combineLatest2(emailStream, phoneStream, (a, b) => _validate(a, b));
 
   bool _validate(String e, String p) {
+    print("________email $e --------- ${_emailSubject.valueOrNull}");
+    print("________phone $p --------- ${_phoneSubject.valueOrNull}");
     return identical(e, _emailSubject.valueOrNull) &&
             identical(p, _phoneSubject.valueOrNull)
         ? true
@@ -61,6 +63,8 @@ class LoginBloc extends BaseBloc {
 
   Person? get lastPerson => loginSubject.valueOrNull?.data;
   String? get lastCity => citySubject.valueOrNull?.data;
+
+  bool get lastFormState => formSubject.valueOrNull?.data ?? false;
 
   void listenFormState() {
     formStream.listen((event) {

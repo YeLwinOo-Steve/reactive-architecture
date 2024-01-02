@@ -98,10 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: SizedBox(
                     width: double.maxFinite,
                     child: FilledButton.icon(
-                      onPressed:
-                          (snapshot.data is FormVM && snapshot.data?.data)
-                              ? () {}
-                              : null,
+                      onPressed: bloc.lastFormState ? () {} : null,
                       label: const Text('Submit'),
                       icon: const Icon(Icons.arrow_right_alt),
                     ),

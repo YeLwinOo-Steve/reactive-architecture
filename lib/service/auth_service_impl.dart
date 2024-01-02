@@ -11,8 +11,10 @@ class AuthServiceImpl extends AuthService {
   @override
   Future<Person?> getProfile() async {
     await Future.delayed(const Duration(seconds: 3));
-    final rand = Random().nextInt(3);
-    if (rand == 2) throw Exception('random is 2');
+    final rand = Random().nextInt(10);
+    if (rand == 2) {
+      throw Exception('Random Exception is 2! Please try refreshing!');
+    }
     return Person(
       name: faker.person.name(),
       email: faker.internet.email(),
