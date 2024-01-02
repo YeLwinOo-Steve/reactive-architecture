@@ -3,25 +3,24 @@ import 'dart:async';
 import 'package:reactive_architecture/service/abstract/auth_service.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../alias/login_alias.dart';
+import '../core/base_bloc.dart';
 import '../core/generic_state.dart';
 import '../entity/person.dart';
 
-typedef LoginVM = GenericState<LoginType, Person>;
-typedef CityVM = GenericState<CityType, String>;
-
-class LoginBloc {
+class LoginBloc extends BaseBloc {
   final AuthService service;
 
   LoginBloc(this.service);
 
-  final controller = StreamController();
+  @override
+  Stream get mainStream => Rx.merge([loginSubject, citySubject]);
   final loginSubject = BehaviorSubject<LoginVM>();
   final citySubject = BehaviorSubject<CityVM>();
 
   Person? get lastPerson => loginSubject.valueOrNull?.data;
   String? get lastCity => citySubject.valueOrNull?.data;
 
-  Stream get mainStream => Rx.merge([loginSubject, citySubject]);
   void getPerson() {
     Stream.fromFuture(service.getProfile()).doOnListen(() {
       print("listening........");
@@ -48,7 +47,3 @@ class LoginBloc {
     });
   }
 }
-
-class LoginType {}
-
-class CityType {}

@@ -1,6 +1,6 @@
 enum State { initial, loading, loaded, requestError, serverError }
 
-class GenericState<T, D> {
+class GenericState<T extends Object, D> {
   D? data;
   T? type;
   State? state;
@@ -8,7 +8,6 @@ class GenericState<T, D> {
 
   GenericState(
       {this.data, this.state = State.initial, this.message, this.type});
-
   factory GenericState.init() => GenericState<T, D>(state: State.initial);
   factory GenericState.initWithData(D? data) =>
       GenericState<T, D>(data: data, state: State.initial);

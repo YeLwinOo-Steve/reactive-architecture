@@ -1,8 +1,9 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:reactive_architecture/bloc/login_bloc.dart';
+import 'package:reactive_architecture/presentation/home.dart';
 import 'package:reactive_architecture/service/auth_service_impl.dart';
+
+import '../alias/login_alias.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -10,9 +11,6 @@ class LoginPage extends StatefulWidget {
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
-
-typedef Fun = Widget Function();
-
 class _LoginPageState extends State<LoginPage> {
   final LoginBloc bloc = LoginBloc(AuthServiceImpl());
 
@@ -69,18 +67,37 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.white,
                         ),
                       )
-                    : Icon(Icons.loop),
+                    : const Icon(Icons.loop),
                 label: Text(bloc.lastCity ?? 'Generate city'),
               ),
             ],
           ));
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          bloc.getPerson();
-        },
-        child: Icon(Icons.refresh),
+      floatingActionButton: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(
+            heroTag: "refresh",
+            onPressed: () {
+              bloc.getPerson();
+            },
+            child: const Icon(Icons.refresh),
+          ),
+          const SizedBox(width: 20),
+          FloatingActionButton(
+            heroTag: "home",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Home(),
+                ),
+              );
+            },
+            child: const Icon(Icons.explore),
+          )
+        ],
       ),
     );
   }
